@@ -12,7 +12,9 @@ describe("Genially - Delete Resource", () => {
   beforeEach(() => {
     server.close();
   });
-
+  beforeAll(() => {
+    server.close();
+  });
   it("should set as deleted an existing Genially", async () => {
 
     const existingGenially: Genially = randomGenially();

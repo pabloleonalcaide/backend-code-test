@@ -1,22 +1,17 @@
-import {InvalidArgumentError} from "../../../Shared/Domain/InvalidArgumentError";
+import GeniallyName from "./GeniallyName";
+import GeniallyDescription from "./GeniallyDescription";
+import GeniallyId from "./GeniallyId";
 
 export default class Genially {
-  private _id: string;
-  private _name: string;
-  private _description: string;
+  private _id: GeniallyId;
+  private _name: GeniallyName;
+  private _description: GeniallyDescription;
   private _createdAt: Date;
   private _modifiedAt: Date;
   private _deletedAt: Date;
 
-  private readonly DESCRIPTION_LIMIT = 125;
-  private readonly NAME_MIN_LENGTH = 3;
-  private readonly NAME_MAX_LENGTH = 20;
 
-
-  constructor(id: string, name: string, description?: string) {
-    this.ensureNameHasValidLength(name);
-    this.ensureDescriptionIsLessThanLimit(description);
-
+  constructor(id: GeniallyId, name: GeniallyName, description?: GeniallyDescription) {
     this._id = id;
     this._name = name;
     this._description = description;
@@ -24,15 +19,15 @@ export default class Genially {
   }
 
   get id(): string {
-    return this._id;
+    return this._id.value;
   }
 
   get name(): string {
-    return this._name;
+    return this._name.value;
   }
 
   get description(): string {
-    return this._description;
+    return this._description.value;
   }
 
   get createdAt(): Date {
@@ -53,19 +48,9 @@ export default class Genially {
   }
 
   rename(newName: string): void {
-    this.ensureNameHasValidLength(newName);
-    this._name = newName;
+    this._name = new GeniallyName(newName);
     this._modifiedAt = new Date();
   }
 
-  private ensureNameHasValidLength(name: string): void {
-    if(name.length > this.NAME_MAX_LENGTH || name.length < this.NAME_MIN_LENGTH){
-      throw new InvalidArgumentError(`The name - ${name} - has an invalid length, consideer someone between ${this.NAME_MAX_LENGTH} and ${this.NAME_MIN_LENGTH}`);
-    }
-  }
-  private ensureDescriptionIsLessThanLimit(description: string): void {
-    if(description.length > this.DESCRIPTION_LIMIT){
-      throw new InvalidArgumentError(`The description - ${description} - exceed the limit of ${this.DESCRIPTION_LIMIT}`);
-    }
-  }
+
 }
