@@ -5,6 +5,9 @@ describe("HealthCheck", () => {
   afterEach(() => {
     server.close();
   });
+  beforeEach(() => {
+    server.close();
+  });
   it("should return OK status", async () => {
     const response = await request(server)
     .get("/");

@@ -1,9 +1,11 @@
 import { Router } from "express";
-import * as controller from "../controllers/genially/geniallyPost";
+import * as postController from "../controllers/genially/geniallyPost";
+import * as deleteController from "../controllers/genially/geniallyDelete";
 
 const geniallyRouter: Router = Router();
 
-geniallyRouter.post("/", controller.create);
+geniallyRouter.post("/", postController.create);
+geniallyRouter.delete("/", deleteController.remove);
 
 
 export default geniallyRouter;

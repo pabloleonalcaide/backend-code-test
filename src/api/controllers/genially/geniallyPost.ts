@@ -1,11 +1,11 @@
 import { Response, Request } from "express";
 
-import InMemoryGeniallyRepository from "../../../contexts/core/genially/infrastructure/InMemoryGeniallyRepository";
+import container from "../../container";
 import CreateGeniallyService from "../../../contexts/core/genially/application/CreateGeniallyService";
 
 export const create = async (req: Request, res: Response) => {
   // Service should be an injected dependency  (node-dependency-injection)
-  const createService: CreateGeniallyService = new CreateGeniallyService(new InMemoryGeniallyRepository());
+  const createService: CreateGeniallyService = new CreateGeniallyService(container.get("genially_repository"));
   try {
     // Consideer to dispatch a createGeniallyCommand to the CommandBus
     await createService.execute({

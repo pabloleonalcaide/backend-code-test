@@ -3,11 +3,11 @@ import {v4 as uuidV4 } from "uuid";
 
 import server from "../../../../src/api/server";
 
-describe("Genially", () => {
+describe("Genially - Create resource", () => {
   afterEach(() => {
     server.close();
   });
-  beforeAll(() => {
+  beforeEach(() => {
     server.close();
   });
 

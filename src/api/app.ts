@@ -24,5 +24,4 @@ app.use(lusca.xssProtection(true));
 app.get("/", healthController.check);
 app.use("/genially", geniallyRouter);
 
-
 export default app;

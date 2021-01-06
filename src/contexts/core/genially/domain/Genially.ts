@@ -47,6 +47,11 @@ export default class Genially {
     return this._deletedAt;
   }
 
+  delete(): void {
+    // should be more restrictive or simply override the date?
+    this._deletedAt = this._deletedAt ? this._deletedAt : new Date();
+  }
+
   private ensureNameHasValidLenght(name: string): void {
     if(name.length > this.NAME_MAX_LENGTH || name.length < this.NAME_MIN_LENGTH){
       throw new InvalidArgumentError(`The name - ${name} - has an invalid length, consideer someone between ${this.NAME_MAX_LENGTH} and ${this.NAME_MIN_LENGTH}`);
