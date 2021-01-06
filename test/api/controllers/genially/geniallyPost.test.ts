@@ -10,7 +10,9 @@ describe("Genially - Create resource", () => {
   beforeEach(() => {
     server.close();
   });
-
+  beforeAll(() => {
+    server.close();
+  });
   it("should create a new valid Genially", async () => {
     const response = await request(server)
     .post("/genially")

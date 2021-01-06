@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 
-import container from "../../container";
+import container from "../../dependency-container/container";
 import CreateGeniallyService from "../../../contexts/core/genially/application/CreateGeniallyService";
 
 export const create = async (req: Request, res: Response) => {

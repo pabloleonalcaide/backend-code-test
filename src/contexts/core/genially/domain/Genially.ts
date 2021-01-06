@@ -14,7 +14,7 @@ export default class Genially {
 
 
   constructor(id: string, name: string, description?: string) {
-    this.ensureNameHasValidLenght(name);
+    this.ensureNameHasValidLength(name);
     this.ensureDescriptionIsLessThanLimit(description);
 
     this._id = id;
@@ -52,7 +52,13 @@ export default class Genially {
     this._deletedAt = this._deletedAt ? this._deletedAt : new Date();
   }
 
-  private ensureNameHasValidLenght(name: string): void {
+  rename(newName: string): void {
+    this.ensureNameHasValidLength(newName);
+    this._name = newName;
+    this._modifiedAt = new Date();
+  }
+
+  private ensureNameHasValidLength(name: string): void {
     if(name.length > this.NAME_MAX_LENGTH || name.length < this.NAME_MIN_LENGTH){
       throw new InvalidArgumentError(`The name - ${name} - has an invalid length, consideer someone between ${this.NAME_MAX_LENGTH} and ${this.NAME_MIN_LENGTH}`);
     }
