@@ -2,7 +2,7 @@ import request from "supertest";
 import server from "../../../../src/api/server";
 
 describe("HealthCheck", () => {
-  afterAll(() => {
+  afterEach(() => {
     server.close();
   });
   it("should return OK status", async () => {
