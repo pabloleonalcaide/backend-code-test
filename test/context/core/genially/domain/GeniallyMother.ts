@@ -12,3 +12,10 @@ export const randomGenially = () => {
     new GeniallyDescription("with an awesome content")
   );
 };
+export const wrongParams = {
+  wrongDescription : "with an awesome content and an extra large description talking about how awesome is the content, should I use Lorem Ipsum instead?",
+  wrongShortName : "gn",
+  wrongLongName : "My very long named genially"
+};
+
+export const randomId = () => uuidV4();
