@@ -5,6 +5,9 @@ import lusca from "lusca";
 
 // Controllers (route handlers)
 import * as healthController from "./controllers/health";
+// Routes (to consolidate endpoints around own domain)
+import geniallyRouter from "../api/routes/genially";
+
 
 // Create Express server
 const app = express();
@@ -19,5 +22,6 @@ app.use(lusca.xssProtection(true));
 
 // Primary app routes
 app.get("/", healthController.check);
+app.use("/genially", geniallyRouter);
 
 export default app;
