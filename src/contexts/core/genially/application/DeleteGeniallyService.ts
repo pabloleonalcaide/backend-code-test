@@ -13,7 +13,6 @@ export default class DeleteGeniallyService {
     const genially = await this.repository.find(id);
 
     this.ensureGeniallyDoesntExist(genially);
-
     genially.delete();
     this.repository.save(genially);
     return genially;
