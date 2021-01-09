@@ -1,6 +1,6 @@
 import GeniallyRepository from "../../domain/GeniallyRepository";
 import DatabaseError from "../../../../Shared/Domain/DatabaseError";
-import {GeniallyMongoModel} from "./GeniallyModel";
+import {GeniallyInterface, GeniallyMongoModel} from "./GeniallyModel";
 import Genially from "../../domain/Genially";
 
 export default class MongoGeniallyRepository implements GeniallyRepository  {
@@ -15,7 +15,7 @@ export default class MongoGeniallyRepository implements GeniallyRepository  {
 }
   async find(id: string): Promise<Genially> {
     try{
-      const response = await GeniallyMongoModel.findOne({_id: id});
+      const response: GeniallyInterface = await GeniallyMongoModel.findOne({_id: id});
       return this.fromPrimitives(response);
     }catch(error){
       throw new DatabaseError("Something were wrong with MongoDB - find -");
@@ -30,14 +30,14 @@ export default class MongoGeniallyRepository implements GeniallyRepository  {
     }
   }
 
-  private fromPrimitives(queryResult: Document<GeniallyMongoModel>): Genially{
+  private fromPrimitives(queryResult: GeniallyInterface): Genially{
       return Genially.fromPrimitives(
         queryResult._id,
         queryResult.name,
         queryResult.description ? queryResult.description : "",
         queryResult.createdAt ? queryResult.createdAt : null,
         queryResult.modifiedAt ? queryResult.modifiedAt : null,
-        queryResult.deletedAt ? aggregate.deletedAt : null
+        queryResult.deletedAt ? queryResult.deletedAt : null
       );
   }
 }

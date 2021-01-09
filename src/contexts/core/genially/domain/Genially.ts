@@ -56,7 +56,7 @@ export default class Genially {
     id: string,
     name: string,
     description?: string,
-    createdAt: Date,
+    createdAt?: Date,
     modifiedAt?: Date,
     deletedAt?: Date
   ): Genially{

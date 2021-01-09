@@ -1,8 +1,9 @@
 import { Response, Request } from "express";
 
 import container from "../../dependency-container/container";
- import Genially from "../../../contexts/core/genially/domain/Genially";
- import RenameGeniallyService from "../../../contexts/core/genially/application/RenameGeniallyService";
+import Genially from "../../../contexts/core/genially/domain/Genially";
+import GeniallyNotExist from "../../../contexts/core/genially/domain/GeniallyNotExist";
+import RenameGeniallyService from "../../../contexts/core/genially/application/RenameGeniallyService";
 
 export const update = async (req: Request, res: Response) => {
  const renameService: RenameGeniallyService = new RenameGeniallyService(container.get("genially_repository"));
