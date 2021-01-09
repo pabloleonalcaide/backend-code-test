@@ -47,6 +47,6 @@ describe("Genially - Delete Resource", () => {
       "id": uuidV4()
     });
 
-    expect(response.status).toEqual(403);
+    expect(response.status).toEqual(400);
   });
 });
