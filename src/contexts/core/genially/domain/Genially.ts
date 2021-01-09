@@ -52,5 +52,29 @@ export default class Genially {
     this._modifiedAt = new Date();
   }
 
+  public static fromPrimitives(
+    id: string,
+    name: string,
+    description?: string,
+    createdAt: Date,
+    modifiedAt?: Date,
+    deletedAt?: Date
+  ): Genially{
+    const genially = new Genially(new GeniallyId(id), new GeniallyName(name), new GeniallyDescription(description));
+    genially._createdAt = createdAt;
+    genially._deletedAt = deletedAt;
+    genially._modifiedAt = modifiedAt;
+    return genially;
+  }
 
+  public toPrimitives = () => {
+    return {
+      _id: this._id.value,
+      name: this._name.value,
+      description: this._description.value ? this._description.value : "",
+      createdAt: this._createdAt ? this._createdAt : null,
+      modifiedAt: this._modifiedAt ? this._modifiedAt : null,
+      deletedAt: this._deletedAt ? this._deletedAt : null
+    };
+  };
 }

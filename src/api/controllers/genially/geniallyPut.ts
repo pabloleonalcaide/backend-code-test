@@ -12,8 +12,9 @@ export const update = async (req: Request, res: Response) => {
       id: req.body.id,
       name: req.body.name
     });
-    res.status(200).json(renamedGenially);
+    res.status(200).json({ status: `Genially ${renamedGenially.id} renamed` });
   } catch (error) {
-    res.status(400).json(error);
+    const status = error instanceof GeniallyNotExist ? 403 : 500;
+    res.status(status).json({error: error.message});
   }
 };
