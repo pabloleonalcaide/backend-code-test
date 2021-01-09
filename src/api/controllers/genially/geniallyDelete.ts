@@ -16,7 +16,7 @@ export const remove = async (req: Request, res: Response) => {
     res.status(202).json({ status: `Genially ${req.body.id} deleted at ${deletedGenially.deletedAt}` });
 
   } catch (error) {
-    const status = error instanceof GeniallyNotExist ? 403 : 500;
+    const status = error instanceof GeniallyNotExist ? 400 : 500;
       res.status(status).json({error: error.message});
   }
 };
