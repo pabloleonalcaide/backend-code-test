@@ -5,21 +5,28 @@ import DeleteGeniallyService from "../../../contexts/core/genially/application/D
 import GeniallyNotExist from "../../../contexts/core/genially/domain/GeniallyNotExist";
 import Genially from "../../../contexts/core/genially/domain/Genially";
 
+export class GeniallyDelete {
+  private deleteService: DeleteGeniallyService;
 
-export const remove = async (req: Request, res: Response) => {
-  // Service should be an injected dependency  (node-dependency-injection)
-  const deleteService: DeleteGeniallyService = new DeleteGeniallyService(container.get("genially_repository"));
-
-  try {
-    // Consider to dispatch a deleteGeniallyCommand to the CommandBus
-    const deletedGenially: Genially = await deleteService.execute({id: req.body.id});
-    res.status(202).json({ status: `Genially ${req.body.id} deleted at ${deletedGenially.deletedAt}` });
-
-  } catch (error) {
-    if(error instanceof GeniallyNotExist){
-      res.status(400).json({error: error.message});
-    }else{
-      res.status(500).json({error: "Something were wrong trying to delete the Genially"});
-    }
+  constructor() {
+    this.deleteService = new DeleteGeniallyService(container.get("genially_repository"));
   }
-};
+  public remove = async (req: Request, res: Response) => {
+    // Service should be an injected dependency  (node-dependency-injection)
+
+    try {
+      // Consider to dispatch a deleteGeniallyCommand to the CommandBus
+      const deletedGenially: Genially = await this.deleteService.execute({id: req.body.id});
+      res.status(202).json({ status: `Genially ${req.body.id} deleted at ${deletedGenially.deletedAt}` });
+
+    } catch (error) {
+      if(error instanceof GeniallyNotExist){
+        res.status(400).json({error: error.message});
+      }else{
+        res.status(500).json({error: "Something were wrong trying to delete the Genially"});
+      }
+    }
+  };
+
+}
+
