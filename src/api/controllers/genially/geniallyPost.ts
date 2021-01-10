@@ -5,7 +5,7 @@ import DatabaseError from "../../../contexts/Shared/Domain/DatabaseError";
 
 export const create = async (req: Request, res: Response) => {
   // Service should be an injected dependency  (node-dependency-injection)
-  const createService: CreateGeniallyService = new CreateGeniallyService(container.get("genially_repository"));
+  const createService: CreateGeniallyService = new CreateGeniallyService(container.get("genially_repository"), container.get("genially_event_bus"));
   try {
     // Consideer to dispatch a createGeniallyCommand to the CommandBus
     await createService.execute({

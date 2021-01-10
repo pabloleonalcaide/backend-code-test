@@ -8,6 +8,7 @@ import * as healthController from "./controllers/health";
 // Routes (to consolidate endpoints around own domain)
 import geniallyRouter from "../api/routes/genially";
 import { connect } from "../contexts/Shared/Infrastructure/persistence/mongodb_config";
+import {registerEventSubscribers} from "./registerEventSubscribers";
 
 
 // Create Express server
@@ -30,5 +31,7 @@ app.use("/genially", geniallyRouter);
 if(process.env.NODE_ENV !== "test"){
   connect();
 }
+
+registerEventSubscribers();
 
 export default app;

@@ -1,8 +1,10 @@
+import { GeniallyCreatedDomainEvent } from "./GeniallyCreatedDomainEvent";
 import GeniallyName from "./GeniallyName";
 import GeniallyDescription from "./GeniallyDescription";
 import GeniallyId from "./GeniallyId";
+import { AggregateRoot } from "../../../Shared/Domain/AggregateRoot";
 
-export default class Genially {
+export default class Genially extends AggregateRoot {
   private _id: GeniallyId;
   private _name: GeniallyName;
   private _description: GeniallyDescription;
@@ -12,10 +14,19 @@ export default class Genially {
 
 
   constructor(id: GeniallyId, name: GeniallyName, description?: GeniallyDescription) {
+    super();
     this._id = id;
     this._name = name;
     this._description = description;
     this._createdAt = new Date();
+  }
+
+  static create(id: GeniallyId, name: GeniallyName, description?: GeniallyDescription){
+    const genially = new Genially(id, name, description);
+
+    genially.recordEvent(new GeniallyCreatedDomainEvent(id.value,new Date()));
+
+    return genially;
   }
 
   get id(): string {

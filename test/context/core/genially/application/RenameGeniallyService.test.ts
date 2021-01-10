@@ -14,8 +14,9 @@ describe("Rename Genially Service - Unit Test", () => {
     const someGenially: Genially = randomGenially();
     const newName = "Another name";
     const repository = container.get("genially_repository");
+    const eventBus = container.get("genially_event_bus");
 
-    const createService = new CreateGeniallyService(repository);
+    const createService = new CreateGeniallyService(repository, eventBus);
     const renameService = new RenameGeniallyService(repository);
 
     const createdGenially = await createService.execute({id: someGenially.id, name: someGenially.name, description: someGenially.description});

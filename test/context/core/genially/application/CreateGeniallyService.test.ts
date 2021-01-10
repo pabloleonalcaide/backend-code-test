@@ -17,7 +17,7 @@ describe("Create Genially Service - Unit Test", () => {
       description: expectedGenially.description
      };
 
-    const service = new CreateGeniallyService(container.get("genially_repository"));
+    const service = new CreateGeniallyService(container.get("genially_repository"), container.get("genially_event_bus"));
 
     const someGenially = await service.execute({id: expectedGenially.id, name: expectedGenially.name, description: expectedGenially.description});
 
@@ -29,7 +29,7 @@ describe("Create Genially Service - Unit Test", () => {
 
     const request = {id: randomId(), name: "awesome name", description: wrongParams.wrongDescription};
 
-    const service = new CreateGeniallyService(container.get("genially_repository"));
+    const service = new CreateGeniallyService(container.get("genially_repository"), container.get("genially_event_bus"));
 
     await expect(service.execute(request)).rejects.toThrow(InvalidArgumentError);
 
@@ -39,7 +39,7 @@ describe("Create Genially Service - Unit Test", () => {
     const wrongName = Math.floor(Math.random()) ? wrongParams.wrongLongName : wrongParams.wrongShortName;
     const request = {id: randomId(), name: wrongName, description: "nice description"};
 
-    const service = new CreateGeniallyService(container.get("genially_repository"));
+    const service = new CreateGeniallyService(container.get("genially_repository"), container.get("genially_event_bus"));
 
     await expect(service.execute(request)).rejects.toThrow(InvalidArgumentError);
 
