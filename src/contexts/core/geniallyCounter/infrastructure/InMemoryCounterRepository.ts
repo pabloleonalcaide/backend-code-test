@@ -5,8 +5,8 @@ import { CounterRepository } from "./../domain/CounterRepository";
 export default class InMemoryCounterRepository implements CounterRepository {
   private counter: GeniallyCounter = new GeniallyCounter(0);
 
-  async increase(): Promise<GeniallyCounter>{
-    this.counter.increase();
+  async save(counter: GeniallyCounter): Promise<GeniallyCounter>{
+    this.counter = counter;
     return await this.counter;
   }
 

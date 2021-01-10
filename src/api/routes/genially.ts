@@ -8,6 +8,7 @@ import { GeniallyDelete } from "../controllers/genially/geniallyDelete";
 
 const geniallyRouter: Router = Router();
 // In order to have a minimum observability we should add some Logger tracking Req/Res in Controllers
+// Should be a cleanest way to define the controllers
 const postController: GeniallyPost = container.get("genially.post_controller");
 geniallyRouter.post("/", postController.create );
 const putController: GeniallyPut = container.get("genially.put_controller");

@@ -5,6 +5,9 @@ export default class CounterUpdater {
   constructor(private repository: CounterRepository){}
 
   public async execute(): Promise<GeniallyCounter> {
-    return await this.repository.increase();
+
+    const counter = await this.repository.get();
+    counter.increase();
+    return await this.repository.save(counter);
   }
 }

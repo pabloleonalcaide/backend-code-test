@@ -12,7 +12,6 @@ export class GeniallyDelete {
     this.deleteService = new DeleteGeniallyService(container.get("genially_repository"));
   }
   public remove = async (req: Request, res: Response) => {
-    // Service should be an injected dependency  (node-dependency-injection)
 
     try {
       // Consider to dispatch a deleteGeniallyCommand to the CommandBus
