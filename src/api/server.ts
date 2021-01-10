@@ -22,7 +22,9 @@ const server = app.listen(app.get("port"), () => {
 });
 
 server.on("close", () => {
-  disconnect();
+  if(process.env.NODE_ENV !== "test"){
+    disconnect();
+  }
 });
 
 export default server;

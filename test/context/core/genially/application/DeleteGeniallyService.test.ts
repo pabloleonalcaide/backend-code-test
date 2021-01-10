@@ -13,7 +13,8 @@ describe("Delete Genially Service - Unit Test", () => {
 
     const expectedGenially: Genially = randomGenially();
     const repository = container.get("genially_repository");
-    const createService = new CreateGeniallyService(repository);
+    const eventBus = container.get("genially_event_bus");
+    const createService = new CreateGeniallyService(repository, eventBus);
     const deleteService = new DeleteGeniallyService(repository);
 
     const createdGenially = await createService.execute({id: expectedGenially.id, name: expectedGenially.name, description: expectedGenially.description});
