@@ -3,6 +3,7 @@ import { Response, Request } from "express";
 import container from "../../dependency-container/container";
 import Genially from "../../../contexts/core/genially/domain/Genially";
 import GeniallyNotExist from "../../../contexts/core/genially/domain/GeniallyNotExist";
+import {InvalidArgumentError} from "../../../contexts/Shared/Domain/InvalidArgumentError";
 import RenameGeniallyService from "../../../contexts/core/genially/application/RenameGeniallyService";
 
 export const update = async (req: Request, res: Response) => {
@@ -15,7 +16,10 @@ export const update = async (req: Request, res: Response) => {
     });
     res.status(200).json({ status: `Genially ${renamedGenially.id} renamed` });
   } catch (error) {
-    const status = error instanceof GeniallyNotExist ? 400 : 500;
-    res.status(status).json({error: error.message});
+    if(error instanceof GeniallyNotExist || error instanceof InvalidArgumentError){
+      res.status(400).json({error: error.message});
+    }else{
+      res.status(500).json({error: "Something were wrong trying to edit the Genially"});
+    }
   }
 };

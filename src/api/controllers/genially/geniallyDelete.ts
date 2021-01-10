@@ -11,12 +11,15 @@ export const remove = async (req: Request, res: Response) => {
   const deleteService: DeleteGeniallyService = new DeleteGeniallyService(container.get("genially_repository"));
 
   try {
-    // Consideer to dispatch a deleteGeniallyCommand to the CommandBus
+    // Consider to dispatch a deleteGeniallyCommand to the CommandBus
     const deletedGenially: Genially = await deleteService.execute({id: req.body.id});
     res.status(202).json({ status: `Genially ${req.body.id} deleted at ${deletedGenially.deletedAt}` });
 
   } catch (error) {
-    const status = error instanceof GeniallyNotExist ? 400 : 500;
-      res.status(status).json({error: error.message});
+    if(error instanceof GeniallyNotExist){
+      res.status(400).json({error: error.message});
+    }else{
+      res.status(500).json({error: "Something were wrong trying to delete the Genially"});
+    }
   }
 };

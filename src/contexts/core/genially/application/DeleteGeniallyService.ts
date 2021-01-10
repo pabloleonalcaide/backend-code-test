@@ -12,15 +12,15 @@ export default class DeleteGeniallyService {
     const { id } = req;
     const genially = await this.repository.find(id);
 
-    this.ensureGeniallyDoesntExist(genially);
+    this.ensureGeniallyDoesntExist(id, genially);
     genially.delete();
     this.repository.save(genially);
     return genially;
   }
 
-  private ensureGeniallyDoesntExist(genially: Genially) {
+  private ensureGeniallyDoesntExist(id: string, genially: Genially) {
     if (!genially) {
-      throw new GeniallyNotExist("This Genially doesn't exist");
+      throw new GeniallyNotExist(`The Genially this id ${id} doesn't exist`);
     }
   }
 }

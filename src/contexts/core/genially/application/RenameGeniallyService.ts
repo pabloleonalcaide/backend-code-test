@@ -14,7 +14,7 @@ export default class RenameGeniallyService {
      const {id, name} = request;
      const genially = await this.repository.find(id);
 
-    this.ensureGeniallyDoesntExist(genially);
+    this.ensureGeniallyDoesntExist(id, genially);
 
     genially.rename(name);
 
@@ -23,9 +23,9 @@ export default class RenameGeniallyService {
     return genially;
   }
 
-  private ensureGeniallyDoesntExist(genially: Genially) {
+  private ensureGeniallyDoesntExist(id: string, genially: Genially) {
     if (!genially) {
-      throw new GeniallyNotExist("This Genially doesn't exist");
+      throw new GeniallyNotExist(`The Genially this id ${id} doesn't exist`);
     }
   }
 }
